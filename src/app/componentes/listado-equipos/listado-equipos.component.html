@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Shop Homepage - Start Bootstrap Template</title>
+</head>
+
+<body>
+
+  <!-- /.container -->
+  <div class="container mt-3">
+      <h2>Mis Equipos Favoritos</h2>
+      <div class="row mb-5">
+        <div *ngFor="let fv of favoritos"  class="col-6 col-md-4 col-lg-3 mb-4">
+          <div>
+            <div class="card h-100 p-2 text-center border border-success">
+              <img class="card-img-top w-25 mx-auto" src="{{fv.strTeamBadge}}" alt="">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a [routerLink]="['/team', fv.idTeam]" class="text-info">{{fv.strTeam}}</a>
+                  <p class="text-success">Favorito</p>
+                </h4>
+              </div>
+              <div class="card-footer">
+                <a [routerLink]="['/team', fv.idTeam]" class="btn btn-info mr-1">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <h2>Equipos</h2>
+    <div class="row">
+      <div *ngFor="let team of teamslist"  class="col-6 col-md-4 col-lg-3 mb-4">
+        <div>
+          <div class="card h-100 p-2 text-center border border-warning">
+            <img class="card-img-top w-50 mx-auto" src="{{team.strTeamBadge}}" alt="">
+            <div class="card-body">
+              <h4 class="card-title">
+                <a [routerLink]="['/team', team.idTeam]" class="text-info">{{team.strTeam}}</a>
+              </h4>
+            </div>
+            <div class="card-footer">
+              <a [routerLink]="['/team', team.idTeam]" class="btn btn-info mr-1">Ver</a>
+              <button (click)="clickFavorito(team.idTeam)" class="btn btn-warning mr-1">favorito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <!-- Footer -->
+  <footer class="py-5">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; SVassallo 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+
+
+</body>
+
+</html>

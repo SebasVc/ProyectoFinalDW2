@@ -1,0 +1,13 @@
+<div class="container text-dark mt-5">
+  <div *ngFor="let j of player" class="jumbotron text-center bg-warning">
+    <h1 class="display-4 text-warning">{{j.strPlayer}}</h1>
+    <div style="width: 200px; height: 200px;" class="mx-auto">
+      <img src="{{j.strThumb || j.strRender}}" class="w-75 ">
+    </div>
+    <p><strong>Nombre: </strong>{{j.strPlayer || "No disponible"}}</p>
+    <p><strong>Número: </strong>{{j.strNumber || "No disponible"}}</p>
+    <p><strong>Posición: </strong>{{j.strPosition || "No disponible"}}</p>
+    <hr class="my-4">
+    <p>{{j.strDescriptionEN}}</p>
+  </div>
+</div>

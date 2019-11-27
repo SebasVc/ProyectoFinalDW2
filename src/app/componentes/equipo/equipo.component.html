@@ -1,0 +1,166 @@
+<div class="container mt-5">
+  <div *ngFor="let equipo of team">
+    <div class="row">
+      <div class="col-12 col-md-4 mb-2">
+        <div class="card  p-2 text-center border border-warning" style="height: 161px">
+          <a><img class="card-img-top w-25 " src="{{equipo.strTeamBadge}}" alt=""></a>
+          <div class="card-footer">
+            <p class="text-warning">Escudo</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mb-2">
+        <div class="card  p-2 text-center border border-warning" style="height: 161px">
+          <a><img class="card-img-top w-25 " src="{{equipo.strTeamJersey}}" alt=""></a>
+          <div class="card-footer">
+            <p class="text-warning">Camiseta</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mb-2">
+        <div class="card p-2 text-center border border-warning" style="height: 161px">
+          <a><img class="card-img-top w-50 " src="{{equipo.strTeamLogo}}" alt=""></a>
+          <div class="card-footer">
+            <p class="text-warning">Logo</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="mt-5">
+      <h2 class="text-warning">{{equipo.strTeam}}</h2>
+      <p class="text-justify">{{equipo.strDescriptionEN}}</p>
+      <p>
+        <a href="http://{{equipo.strFacebook}}">Facebook - </a>
+        <a href="http://{{equipo.strTwitter}}">Twitter - </a>
+        <a href="http://{{equipo.strInstagram}}">Instagram</a>
+      </p>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12 ">
+        <h2 class="text-warning">Estadio</h2>
+        <p class="text-justify">{{equipo.strStadiumDescription}}</p>
+      </div>
+      <div class="col-12 ">
+        <img src="{{equipo.strStadiumThumb}}" alt="" class="w-100">
+      </div>
+    </div>
+
+    <h2 class="mb-4 mt-5 text-warning">Jugadores</h2>
+    <div class="row">
+      <div *ngFor="let j of players" class="col-6 col-md-2 mb-5">
+        <a [routerLink]="['/player', j.idPlayer]"><img src="{{ j.strThumb || j.strRender  || j.strCutout }}" class="w-100"></a>
+        <p class="text-center">{{j.strPlayer}}</p>
+      </div>
+    </div>
+
+    <h2 class="text-warning">Tabla de Posiciones</h2>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="bg-warning">
+          <tr>
+            <th>Posicion</th>
+            <th>Equipo</th>
+            <th>P.Jugados</th>
+            <th>P.Ganados</th>
+            <th>P.Empatados</th>
+            <th>P.Perdidos</th>
+            <th>G.Favor</th>
+            <th>G.Contra</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let p of table; let i = index" class="text-white">
+          <tr [ngClass]="{' text-warning': p.teamid==equipo.idTeam}">
+            <td>{{i+1}}</td>
+            <td>{{p.name}}</td>
+            <td>{{p.played}}</td>
+            <td>{{p.win}}</td>
+            <td>{{p.draw}}</td>
+            <td>{{p.loss}}</td>
+            <td>{{p.goalsfor}}</td>
+            <td>{{p.goalsagainst}}</td>
+            <td>{{p.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="my-4">
+    <h2 class="text-warning">Resultados</h2>
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="bg-warning">
+          <tr>
+            <th>Local</th>
+            <th>Visitante</th>
+            <th>Goles Local</th>
+            <th>Goles Visitante</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let r of eventslast" class="text-white">
+          <tr>
+            <td>{{r.strHomeTeam}}</td>
+            <td>{{r.strAwayTeam}}</td>
+            <td>{{r.intHomeScore}}</td>
+            <td>{{r.intAwayScore}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="my-4">
+    <h2 class="text-warning">Eventos próximos</h2>
+    <div class="table-responsive text-white">
+      <table class="table">
+        <thead class="bg-warning">
+          <tr>
+            <th>Local</th>
+            <th>Visitante</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let e of events" class="text-white">
+          <tr>
+            <td>{{e.strHomeTeam}}</td>
+            <td>{{e.strAwayTeam}}</td>
+            <td>{{e.dateEvent}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button (click)=toggleDisplay() class="btn btn-warning">Ver todos los eventos</button>
+    <div [hidden]="isShow">
+      <hr class="my-4">
+      <h2 class="text-warning">Todos los Eventos</h2>
+      <div class="table-responsive text-white">
+        <table class="table">
+          <thead class="bg-warning">
+            <tr>
+              <th>Local</th>
+              <th>Visitante</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let e of allEventsLast" class="text-white">
+            <tr *ngIf="e.strHomeTeam==equipo.strTeam || e.strAwayTeam==equipo.strTeam">
+              <td>{{e.strHomeTeam}}</td>
+              <td>{{e.strAwayTeam}}</td>
+              <td>Jugado - <button (click)="show(e.idEvent)" class="btn btn-warning">detalles</button></td>
+            </tr>
+          </tbody>
+          <tbody *ngFor="let e of allEvents" class="text-white">
+            <tr *ngIf="e.strHomeTeam==equipo.strTeam || e.strAwayTeam==equipo.strTeam">
+              <td>{{e.strHomeTeam}}</td>
+              <td>{{e.strAwayTeam}}</td>
+              <td>Por Jugar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
